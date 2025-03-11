@@ -1,0 +1,47 @@
+import spidev
+import time
+
+# SPI-Objekt initialisieren
+spi = spidev.SpiDev()
+spi.open(0, 0)  # SPI Bus 0, Chip Select 0
+spi.max_speed_hz = 50000  # Setze die SPI-Geschwindigkeit
+
+# Funktion zum Auslesen des ADC-Wertes (MCP3008)
+def read_adc(channel):
+    if channel < 0 or channel > 7:
+        return -1  # Kanalnummer muss zwischen 0 und 7 liegen
+    # Kommando zur Anfrage des Werts
+    adc = spi.xfer2([1, (8 + channel) << 4, 0])
+    # ADC-Wert extrahieren
+    raw_value = ((adc[1] & 3) << 8) + adc[2]
+    return raw_value
+
+# Funktion zur Umrechnung des ADC-Werts auf UV-Wert
+def calculate_uv_intensity(adc_value):
+    # Skalierung und Kalibrierung basierend auf den spezifischen Daten des Sensors
+    # Hier ein einfacher Umrechnungsfaktor (kalibrierte Werte sollten verwendet werden)
+    uv_intensity = (adc_value / 1023.0) * 5.0  # Dies könnte je nach Bedarf angepasst werden
+    return uv_intensity
+
+# Hauptprogramm
+def main():
+    print("GUVA-S12D Sensor - UV-Messung starten:")
+    
+    try:
+        while True:
+            # Lese den Wert von Kanal 0 (A0 des MCP3008, wo der GUVA-S12D angeschlossen ist)
+            adc_value = read_adc(0)
+            uv_intensity = calculate_uv_intensity(adc_value)
+            
+            # Ausgabe des Ergebnisses
+            print(f"ADC Wert: {adc_value} -> UV Intensität: {uv_intensity:.2f} V")
+            
+            # Warten, um Messungen alle 2 Sekunden durchzuführen
+            time.sleep(2)
+    
+    except KeyboardInterrupt:
+        print("Programm beendet.")
+        spi.close()
+
+if __name__ == "__main__":
+    main()
