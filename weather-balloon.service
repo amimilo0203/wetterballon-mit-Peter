@@ -1,0 +1,30 @@
+# systemd service: starts the logger automatically at every boot and restarts
+# it if it ever crashes. install.sh copies this file to
+# /etc/systemd/system/weather-balloon.service and fills in __USER__ and
+# __PROJECT_DIR__.
+#
+# Useful commands:
+#   sudo systemctl status weather-balloon     is it running?
+#   sudo systemctl stop weather-balloon       stop (e.g. to test by hand)
+#   sudo systemctl start weather-balloon      start again
+#   journalctl -u weather-balloon -f          watch the live output
+
+[Unit]
+Description=Weather balloon sensor logger
+After=local-fs.target
+# Never give up restarting, no matter how often it crashed in a row.
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=__USER__
+WorkingDirectory=__PROJECT_DIR__
+# -u = unbuffered output, so messages appear in journalctl immediately
+ExecStart=__PROJECT_DIR__/venv/bin/python -u main.py
+Restart=always
+RestartSec=5
+# Give the program a few seconds to close its files cleanly on shutdown
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target
