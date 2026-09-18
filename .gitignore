@@ -1,0 +1,12 @@
+# measurement data and generated reports
+data/
+analysis_output/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# editors
+.idea/
+.vscode/

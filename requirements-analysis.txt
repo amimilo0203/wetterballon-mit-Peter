@@ -1,0 +1,5 @@
+# Python libraries for the ANALYSIS (on your laptop, or on the Pi if you like):
+#     pip install -r requirements-analysis.txt
+pandas
+plotly
+matplotlib

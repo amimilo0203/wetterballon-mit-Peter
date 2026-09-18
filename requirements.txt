@@ -1,0 +1,6 @@
+# Python libraries needed ON THE RASPBERRY PI (installed by install.sh into venv/)
+smbus2           # I2C (BME280, AS7265x, HMC5883L, GDK101)
+spidev           # SPI (MCP3008)
+pyserial         # UART (MH-Z19 CO2 sensor)
+pimoroni-bme280  # ready-made BME280 driver
+luma.oled        # optional: SH1107 OLED display
