@@ -44,6 +44,7 @@ SENSOR_RETRY_INTERVAL_S = 60
 # Relative paths (like "data") are relative to the project folder.
 LOG_DIRECTORIES = [
     "data",
+    "/mnt/ssd/Data_weather_balloon"
     # "/media/pi/USBSTICK/weather-balloon",   # example for a second copy
 ]
 
@@ -78,7 +79,7 @@ ADC_CHANNEL_MQ9 = 4
 ADC_REFERENCE_VOLTAGE_V = 3.3
 
 # Serial port for the CO2 sensor (GPIO 14 = TXD, GPIO 15 = RXD).
-CO2_SERIAL_PORT = "/dev/serial0"
+CO2_SERIAL_PORT = "/dev/ttyAMA0"
 CO2_BAUDRATE = 9600
 
 # ---------------------------------------------------------------------------
