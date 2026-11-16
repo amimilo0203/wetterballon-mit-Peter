@@ -70,7 +70,7 @@ class AS7265xSpectral(Sensor):
     RESET_BIT = 0x80
     DATA_READY_BIT = 0x02
     MODE_ONE_SHOT_ALL_CHANNELS = 3   # (mode 2 would be continuous)
-    GAIN_1X = 0                      # 0 = 1x, 1 = 3.7x, 2 = 16x, 3 = 64x
+    GAIN_1X = 3                     # 0 = 1x, 1 = 3.7x, 2 = 16x, 3 = 64x
     INTEGRATION_CYCLES = 49          # 49 * 2.8 ms = 137 ms per bank; one-shot needs 2 banks
     LED_CONFIG_ALL_OFF = 0x00
     LED_CONFIG_ON_12MA = 0x08        # LED on, lowest current (12.5 mA), indicator LED off
